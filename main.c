@@ -4,7 +4,7 @@
 int mode;
 FILE* yaml;
 int main() {
-	printf("请选择DNS服务器运行方式：\n1.安装DNS服务器（开机自启）\n2.运行（不要关闭本窗口，每次需要重新打开）\n3.恢复默认DNS\n请输入：");
+	printf("请选择DNS服务器运行方式：\n1.安装DNS服务器（开机自启）\n2.运行（不要关闭本窗口，每次需要重新打开）\n3.恢复默认DNS\n4.卸载AdguardHome开机自启功能\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	if (mode == 1) {
@@ -33,11 +33,16 @@ int main() {
 		system("AdGuardHome.exe");
 		system("pause");
 	}
-	else {
+	else if (mode == 3) {
 		system("netsh interface ip set dns \"以太网\" dhcp");
 		printf("DNS解析服务器已成功恢复初始设置！\n");
 		system("ipconfig /flushdns");
 		system("pause");
+	}
+	else if (mode == 4) {
+		system("net stop \"Adguard Home service\"");
+		system("sc delete \"Adguard Home service\"");
+		printf("DNS解析服务器已成功从开机启动项中卸载！如需删除，可直接删除文件！\n");
 	}
 	return 0;
 }
