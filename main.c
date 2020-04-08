@@ -4,19 +4,45 @@
 int mode;
 FILE* yaml;
 int main() {
-	printf("请选择DNS服务器运行方式：\n1.安装DNS服务器（开机自启）\n2.运行（不要关闭本窗口，每次需要重新打开）\n3.恢复默认DNS\n4.卸载AdguardHome开机自启功能\n请输入：");
+	MainMenu:system("cls");
+	printf("请选择DNS服务器运行方式：\n1.设置普通级别DNS解析（部分域名会被污染）\n2.运行本地DNS（不要关闭本窗口与弹出窗口，每次开机需要重新打开）\n3.恢复默认DNS（运行模式2时不小心关闭本窗口，可用此选项恢复上网功能）\n4.DNS解析结果测试\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
-	if (mode == 1) {
+	if (mode == 2) {
 		Config_gen();
-		printf("正在安装DNS解析服务器. . .\n");
-		system("AdGuardHome.exe -s install");
-		printf("成功将DNS解析服务器放入System. . .\n");
-		printf("正在登录DNS后台. . .\n");
-		printf("用户名：root，默认密码：root\n");
-		system("explorer http://127.0.0.1");
+		printf("正在将DNS解析服务器设置为本地解析（可能会有报错，忽略即可）. . .\n");
 		system("netsh interface ip set dns \"以太网\" static 127.0.0.1");
-		printf("DNS已部署，已将本地DNS服务器自动设置为127.0.0.1！\n");
+		system("netsh interface ip set dns \"WLAN\" static 127.0.0.1");
+		printf("正在部署DNS解析服务器. . .\n");
+		printf("注意：如需停止DNS解析请务必先关闭弹出窗口，并在本窗口中按任意键恢复默认DNS设置，否则会导致无法上网！！！\n");
+		system("start "" /min AdGuardHome.exe");
+		printf("如需恢复默认DNS设置，请先关闭弹出窗口，然后");
+		system("pause");
+		system("netsh interface ip set dns \"以太网\" dhcp");
+		system("netsh interface ip set dns \"WLAN\" dhcp");
+		printf("DNS解析服务器已成功恢复初始设置！\n");
+		system("pause");
+		goto MainMenu;
+	}
+	else if (mode == 3) {
+		system("netsh interface ip set dns \"以太网\" dhcp");
+		system("netsh interface ip set dns \"WLAN\" dhcp");
+		printf("DNS解析服务器已成功恢复初始设置！\n");
+		system("ipconfig /flushdns");
+		system("pause");
+		goto MainMenu;
+	}
+	else if (mode == 1) {
+		system("netsh interface ip set dns \"以太网\" static 101.133.211.12");
+		system("netsh interface ip set dns \"WLAN\" static 101.133.211.12");
+		printf("DNS解析服务器已成功设置为普通级别DNS！\n");
+		printf("此模式下，谷歌、油管、脸书、推特等敏感域名仍会被污染！\n");
+		printf("需要完全解析请使用模式2！\n");
+		system("ipconfig /flushdns");
+		system("pause");
+		goto MainMenu;
+	}
+	else if (mode == 4) {
 		system("ipconfig /flushdns");
 		printf("正在进行DNS解析检测. . .\n");
 		system("nslookup www.google.com");
@@ -24,25 +50,10 @@ int main() {
 		system("nslookup www.facebook.com");
 		system("nslookup twitter.com");
 		system("nslookup www.twitch.tv");
+		printf("正在进行DNS解析定位. . .\n");
+		system("explorer https://nstool.netease.com");
 		system("pause");
-	}
-	else if (mode == 2) {
-		Config_gen();
-		printf("正在部署DNS解析服务器. . .\n");
-		system("netsh interface ip set dns \"以太网\" static 127.0.0.1");
-		system("AdGuardHome.exe");
-		system("pause");
-	}
-	else if (mode == 3) {
-		system("netsh interface ip set dns \"以太网\" dhcp");
-		printf("DNS解析服务器已成功恢复初始设置！\n");
-		system("ipconfig /flushdns");
-		system("pause");
-	}
-	else if (mode == 4) {
-		system("net stop \"Adguard Home service\"");
-		system("sc delete \"Adguard Home service\"");
-		printf("DNS解析服务器已成功从开机启动项中卸载！如需删除，可直接删除文件！\n");
+		goto MainMenu;
 	}
 	return 0;
 }
