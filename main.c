@@ -14,7 +14,7 @@ int main() {
 		system("netsh interface ip set dns \"以太网\" static 127.0.0.1");
 		system("netsh interface ip set dns \"WLAN\" static 127.0.0.1");
 		system("ipconfig /flushdns");
-		printf("正在部署DNS解析服务器. . .\n\n");
+		printf("\n正在部署DNS解析服务器. . .\n\n");
 		printf("注意：如需停止DNS解析请务必先关闭弹出窗口，并在本窗口中按任意键恢复默认DNS设置，否则会导致无法上网！！！\n\n");
 		system("start "" /min AdGuardHome.exe");
 		printf("如需恢复默认DNS设置，请先关闭弹出窗口，然后");
@@ -22,7 +22,7 @@ int main() {
 		system("netsh interface ip set dns \"以太网\" dhcp");
 		system("netsh interface ip set dns \"WLAN\" dhcp");
 		system("ipconfig /flushdns");
-		printf("DNS解析服务器已成功恢复初始设置！\n\n");
+		printf("\nDNS解析服务器已成功恢复初始设置！\n\n");
 		system("pause");
 		goto MainMenu;
 	}
