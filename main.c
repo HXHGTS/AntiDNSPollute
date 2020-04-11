@@ -35,6 +35,7 @@ int main() {
 		goto MainMenu;
 	}
 	else if (mode == 1) {
+		printf("可能会出现较长时间黑屏，请耐心等待. . .\n");
 		system("netsh interface ip set dns \"以太网\" static 168.126.63.1");
 		system("netsh interface ip add dns \"以太网\" 168.126.63.2 index=2");
 		system("netsh interface ip set dns \"WLAN\" static 168.126.63.1");
