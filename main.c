@@ -51,7 +51,9 @@ int main() {
 		system("pause");
 		system("taskkill /f /im AdGuardHome.exe");
 		system("netsh interface ip set dns \"以太网\" dhcp");
+		system("netsh interface ipv6 set dns \"以太网\" dhcp");
 		system("netsh interface ip set dns \"WLAN\" dhcp");
+		system("netsh interface ipv6 set dns \"WLAN\" dhcp");
 		system("ipconfig /flushdns");
 		printf("\nDNS解析服务器已成功恢复初始设置！\n\n");
 		system("pause");
