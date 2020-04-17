@@ -2,11 +2,11 @@
 
 Windows DNS服务器搭建
 
-下载地址（64位）：https://www.lanzous.com/ibbline
+下载地址（64位）：https://www.lanzous.com/ibj6kzg
 
 AdGuardHome下载地址（64位）：https://lanzous.com/ibbjd6f
 
-下载地址（32位）：https://www.lanzous.com/ibblimd
+下载地址（32位）：https://www.lanzous.com/ibj6kvc
 
 AdGuardHome下载地址（32位）：https://www.lanzous.com/ibbjdkj
 
