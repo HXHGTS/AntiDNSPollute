@@ -104,9 +104,9 @@ int main() {
 			system("netsh interface ip set dns \"WLAN\" static 101.101.101.101");
 			system("netsh interface ip add dns \"WLAN\" 101.102.103.104 index=2");
 			system("netsh interface ipv6 set dns \"以太网\" static 2001:de4::101");
-			system("netsh interface ipv6 add dns \"以太网\" static 2001:de4::102");
+			system("netsh interface ipv6 add dns \"以太网\" static 2001:de4::102 index=2");
 			system("netsh interface ipv6 set dns \"WLAN\" static 2001:de4::101");
-			system("netsh interface ipv6 add dns \"WLAN\" static 2001:de4::102");
+			system("netsh interface ipv6 add dns \"WLAN\" static 2001:de4::102 index=2");
 		}
 		else {
 			system("netsh interface ip set dns \"以太网\" static 1.2.4.8");
@@ -114,9 +114,9 @@ int main() {
 			system("netsh interface ip set dns \"WLAN\" static 1.2.4.8");
 			system("netsh interface ip add dns \"WLAN\" 210.2.4.8 index=2");
 			system("netsh interface ipv6 set dns \"以太网\" static 240c::6666");
-			system("netsh interface ipv6 add dns \"以太网\" static 240c::6644");
+			system("netsh interface ipv6 add dns \"以太网\" static 240c::6644 index=2");
 			system("netsh interface ipv6 set dns \"WLAN\" static 240c::6666");
-			system("netsh interface ipv6 add dns \"WLAN\" static 240c::6644");
+			system("netsh interface ipv6 add dns \"WLAN\" static 240c::6644 index=2");
 		}
 		if(DNSSet==1)printf("DNS解析服务器已成功设置为%s！\n\n","韩国KT DNS");
 		else if (DNSSet == 2)printf("DNS解析服务器已成功设置为%s！\n\n", "韩国SK DNS");
