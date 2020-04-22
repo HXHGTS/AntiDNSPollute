@@ -1,4 +1,4 @@
-# DNS-resolver
+# DNSForMe
 
 Windows DNS服务器搭建
 
