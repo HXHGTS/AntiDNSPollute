@@ -6,7 +6,7 @@ FILE* yaml;
 int Config_gen();
 int main() {
 	MainMenu:system("cls");
-	printf("请选择DNS服务器运行方式：\n\n1.模式1：设置普通级别DNS解析（修改完成可以关闭本程序，部分域名会被污染）\n\n2.模式2：运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n3.恢复默认DNS（运行模式2时未正常退出，可用此选项恢复上网功能）\n\n4.DNS解析结果测试\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.模式1：设置普通级别DNS解析（修改完成可以关闭本程序，部分域名会被污染）\n\n2.模式2：运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n3.恢复默认DNS（运行模式2时未正常退出，可用此选项恢复上网功能）\n\n4.DNS解析结果测试\n\n5.在线帮助\n\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	if (mode == 2) {
@@ -225,6 +225,11 @@ int main() {
 		system("pause");
 		goto MainMenu;
 	}
+	else if (mode == 5) {
+	printf("正在打开在线帮助. . .\n");
+	system("explorer https://github.com/StarLYSS/DNSForMe");
+	goto MainMenu;
+}
 	else {
 		goto MainMenu;
 	}
