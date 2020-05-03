@@ -9,8 +9,10 @@ int ConfigEditor();
 int ConfigToDefault();
 int NSTool();
 int Help();
+int FixHosts();
+
 int mode,DNSSet,fixmode,area;
-FILE* yaml,*AdGuardHome;
+FILE* yaml,*AdGuardHome,*hosts;
 int Config_gen();
 int main() {
 MainMenu:system("cls");
@@ -38,6 +40,10 @@ MainMenu:system("cls");
 }
 	else if (mode == 6) {
 		NSTool();
+		goto MainMenu;
+	}
+	else if (mode == 7) {
+		FixHosts();
 		goto MainMenu;
 	}
 	else if (mode == 0) {
@@ -331,8 +337,23 @@ int Boot() {
 	return 0;
 }
 
+int FixHosts() {
+	printf("正在恢复默认Hosts文件. . .\n\n");
+	hosts = fopen("hosts", "w");
+	fprintf(hosts, "127.0.0.1			localhost\n");
+	fclose(hosts);
+	system("del %windir%\\System32\\drivers\\etc\\hosts");
+	system("copy hosts %windir%\\System32\\drivers\\etc\\hosts");
+	system("del hosts");
+	system("ipconfig /flushdns");
+	printf("\n已成功恢复默认Hosts文件！\n\n");
+	system("pause");
+	system("cls");
+	return 0;
+}
+
 int UserInterface() {
-	printf("请选择DNS服务器运行方式：\n\n1.模式1：设置普通级别DNS解析（修改完成可以关闭本程序，部分域名会被污染）\n\n2.模式2：运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n3.模式3：恢复默认DNS（运行模式2时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.恢复默认配置文件（自定义失败时可用于恢复默认）\n\n6.DNS解析结果测试\n\n0.在线帮助\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.模式1：设置普通级别DNS解析（修改完成可以关闭本程序，部分域名会被污染）\n\n2.模式2：运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n3.模式3：恢复默认DNS（运行模式2时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.恢复默认配置文件（自定义失败时可用于恢复默认）\n\n6.DNS解析结果测试\n\n7.重置系统Hosts文件\n\n0.在线帮助\n\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	return 0;
