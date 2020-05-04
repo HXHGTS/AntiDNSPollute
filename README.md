@@ -2,11 +2,11 @@
 
 本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可加速部分网站访问，暂时不支持广告拦截功能，仅用于解析出准确ip！
 
-下载地址（64位）：https://lanzous.com/ic8raqd
+下载地址（64位）：https://lanzous.com/ic95agh
 
 AdGuardHome下载地址（64位）：https://static.adguard.com/adguardhome/beta/AdGuardHome_Windows_amd64.zip
 
-下载地址（32位）：https://lanzous.com/ic8rbgj
+下载地址（32位）：https://lanzous.com/ic95ahi
 
 AdGuardHome下载地址（32位）：https://static.adguard.com/adguardhome/beta/AdGuardHome_Windows_386.zip
 
