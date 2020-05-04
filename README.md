@@ -1,6 +1,6 @@
 # DNSForMe
 
-本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可加速部分网站访问，暂时不支持广告拦截功能，仅用于解析出准确ip！
+本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可选支持Adblock Plus广告拦截功能，也可仅用于解析出准确ip！
 
 下载地址（64位）：https://lanzous.com/ic95agh
 
