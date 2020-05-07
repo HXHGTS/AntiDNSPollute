@@ -2,13 +2,13 @@
 
 本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可选支持Adblock Plus广告拦截功能，也可仅用于解析出准确ip！
 
-下载地址（64位）：https://lanzous.com/ic95agh
+下载地址（64位）：https://lanzous.com/iccepxg
 
-AdGuardHome下载地址（64位）：https://static.adguard.com/adguardhome/beta/AdGuardHome_Windows_amd64.zip
+AdGuardHome下载地址（64位）：https://lanzous.com/iccen4f
 
-下载地址（32位）：https://lanzous.com/ic95ahi
+下载地址（32位）：https://lanzous.com/iccepra
 
-AdGuardHome下载地址（32位）：https://static.adguard.com/adguardhome/beta/AdGuardHome_Windows_386.zip
+AdGuardHome下载地址（32位）：https://lanzous.com/iccenne
 
 DNS防污染软件模式2基于开源软件AdGuardHome二次编程，便于直接在本地一键部署，因此需要AdGuardHome引擎才能正常运行！！！使用时，请将AdGuardHome.exe与本软件放在同一目录下！
 
