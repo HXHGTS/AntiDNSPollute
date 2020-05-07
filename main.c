@@ -115,34 +115,27 @@ int WeakDNSMode() {
 		system("netsh interface ip add dns \"以太网\" 168.126.63.2 index=2");
 		system("netsh interface ip set dns \"WLAN\" static 168.126.63.1");
 		system("netsh interface ip add dns \"WLAN\" 168.126.63.2 index=2");
-		system("netsh interface ip set dns \"以太网 2\" static 168.126.63.1");
-		system("netsh interface ip add dns \"以太网 2\" 168.126.63.2 index=2");
-		system("netsh interface ip set dns \"以太网 3\" static 168.126.63.1");
-		system("netsh interface ip add dns \"以太网 3\" 168.126.63.2 index=2");
+		system("netsh interface ip set dns \"本地连接\" static 168.126.63.1");
+		system("netsh interface ip add dns \"本地连接\" 168.126.63.2 index=2");
 	}
 	else if (DNSSet == 2) {
 		system("netsh interface ip set dns \"以太网\" static 210.220.163.82");
-		system("netsh interface ip set dns \"以太网 2\" static 210.220.163.82");
-		system("netsh interface ip set dns \"以太网 3\" static 210.220.163.82");
+		system("netsh interface ip set dns \"本地连接\" static 210.220.163.82");
 		system("netsh interface ip set dns \"WLAN\" static 210.220.163.82");
 	}
 	else if (DNSSet == 3) {
 		system("netsh interface ip set dns \"以太网\" static 164.124.101.2");
 		system("netsh interface ip add dns \"以太网\" 203.248.252.2 index=2");
-		system("netsh interface ip set dns \"以太网 2\" static 164.124.101.2");
-		system("netsh interface ip add dns \"以太网 2\" 203.248.252.2 index=2");
-		system("netsh interface ip set dns \"以太网 3\" static 164.124.101.2");
-		system("netsh interface ip add dns \"以太网 3\" 203.248.252.2 index=2");
+		system("netsh interface ip set dns \"本地连接\" static 164.124.101.2");
+		system("netsh interface ip add dns \"本地连接\" 203.248.252.2 index=2");
 		system("netsh interface ip set dns \"WLAN\" static 164.124.101.2");
 		system("netsh interface ip add dns \"WLAN\" 203.248.252.2 index=2");
 	}
 	else if (DNSSet == 4) {
 		system("netsh interface ip set dns \"以太网\" static 168.95.1.1");
 		system("netsh interface ip add dns \"以太网\" 168.95.192.1 index=2");
-		system("netsh interface ip set dns \"以太网 2\" static 168.95.1.1");
-		system("netsh interface ip add dns \"以太网 2\" 168.95.192.1 index=2");
-		system("netsh interface ip set dns \"以太网 3\" static 168.95.1.1");
-		system("netsh interface ip add dns \"以太网 3\" 168.95.192.1 index=2");
+		system("netsh interface ip set dns \"本地连接\" static 168.95.1.1");
+		system("netsh interface ip add dns \"本地连接\" 168.95.192.1 index=2");
 		system("netsh interface ip set dns \"WLAN\" static 168.95.1.1");
 		system("netsh interface ip add dns \"WLAN\" 168.95.192.1 index=2");
 	}
@@ -151,36 +144,28 @@ int WeakDNSMode() {
 		system("netsh interface ip add dns \"以太网\" 101.102.103.104 index=2");
 		system("netsh interface ip set dns \"WLAN\" static 101.101.101.101");
 		system("netsh interface ip add dns \"WLAN\" 101.102.103.104 index=2");
-		system("netsh interface ip set dns \"以太网 2\" static 101.101.101.101");
-		system("netsh interface ip add dns \"以太网 2\" 101.102.103.104 index=2");
-		system("netsh interface ip set dns \"以太网 3\" static 101.101.101.101");
-		system("netsh interface ip add dns \"以太网 3\" 101.102.103.104 index=2");
+		system("netsh interface ip set dns \"本地连接\" static 101.101.101.101");
+		system("netsh interface ip add dns \"本地连接\" 101.102.103.104 index=2");
 		system("netsh interface ipv6 set dns \"以太网\" static 2001:de4::101");
 		system("netsh interface ipv6 add dns \"以太网\" 2001:de4::102 index=2");
 		system("netsh interface ipv6 set dns \"WLAN\" static 2001:de4::101");
 		system("netsh interface ipv6 add dns \"WLAN\" 2001:de4::102 index=2");
-		system("netsh interface ipv6 set dns \"以太网 2\" static 2001:de4::101");
-		system("netsh interface ipv6 add dns \"以太网 2\" 2001:de4::102 index=2");
-		system("netsh interface ipv6 set dns \"以太网 3\" static 2001:de4::101");
-		system("netsh interface ipv6 add dns \"以太网 3\" 2001:de4::102 index=2");
+		system("netsh interface ipv6 set dns \"本地连接\" static 2001:de4::101");
+		system("netsh interface ipv6 add dns \"本地连接\" 2001:de4::102 index=2");
 	}
 	else {
-		system("netsh interface ip set dns \"以太网\" static 119.29.29.29");
+		system("netsh interface ip set dns \"以太网\" static 1.2.4.8");
 		system("netsh interface ip add dns \"以太网\" 210.2.4.8 index=2");
-		system("netsh interface ip set dns \"WLAN\" static 119.29.29.29");
+		system("netsh interface ip set dns \"WLAN\" static 1.2.4.8");
 		system("netsh interface ip add dns \"WLAN\" 210.2.4.8 index=2");
-		system("netsh interface ip set dns \"以太网 2\" static 119.29.29.29");
-		system("netsh interface ip add dns \"以太网 2\" 210.2.4.8 index=2");
-		system("netsh interface ip set dns \"以太网 3\" static 119.29.29.29");
-		system("netsh interface ip add dns \"以太网 3\" 210.2.4.8 index=2");
+		system("netsh interface ip set dns \"本地连接\" static 1.2.4.8");
+		system("netsh interface ip add dns \"本地连接\" 210.2.4.8 index=2");
 		system("netsh interface ipv6 set dns \"以太网\" static 240c::6666");
 		system("netsh interface ipv6 add dns \"以太网\" 240c::6644 index=2");
 		system("netsh interface ipv6 set dns \"WLAN\" static 240c::6666");
 		system("netsh interface ipv6 add dns \"WLAN\" 240c::6644 index=2");
-		system("netsh interface ipv6 set dns \"以太网 2\" static 240c::6666");
-		system("netsh interface ipv6 add dns \"以太网 2\" 240c::6644 index=2");
-		system("netsh interface ipv6 set dns \"以太网 3\" static 240c::6666");
-		system("netsh interface ipv6 add dns \"以太网 3\" 240c::6644 index=2");
+		system("netsh interface ipv6 set dns \"本地连接\" static 240c::6666");
+		system("netsh interface ipv6 add dns \"本地连接\" 240c::6644 index=2");
 	}
 	if (DNSSet == 1)printf("DNS解析服务器已成功设置为%s！\n\n", "韩国KT DNS");
 	else if (DNSSet == 2)printf("DNS解析服务器已成功设置为%s！\n\n", "韩国SK DNS");
@@ -202,10 +187,8 @@ int NetFixTool() {
 	system("del data\\stats.db");
 	system("netsh interface ip set dns \"以太网\" dhcp");
 	system("netsh interface ipv6 set dns \"以太网\" dhcp");
-	system("netsh interface ip set dns \"以太网 2\" dhcp");
-	system("netsh interface ipv6 set dns \"以太网 2\" dhcp");
-	system("netsh interface ip set dns \"以太网 3\" dhcp");
-	system("netsh interface ipv6 set dns \"以太网 3\" dhcp");
+	system("netsh interface ip set dns \"本地连接\" dhcp");
+	system("netsh interface ipv6 set dns \"本地连接\" dhcp");
 	system("netsh interface ip set dns \"WLAN\" dhcp");
 	system("netsh interface ipv6 set dns \"WLAN\" dhcp");
 	printf("DNS解析服务器已成功恢复初始设置！\n\n");
@@ -224,10 +207,8 @@ int RunLocalDNSServer() {
 	system("netsh interface ipv6 set dns \"以太网\" static ::1");
 	system("netsh interface ip set dns \"WLAN\" static 127.0.0.1");
 	system("netsh interface ipv6 set dns \"WLAN\" static ::1");
-	system("netsh interface ip set dns \"以太网 2\" static 127.0.0.1");
-	system("netsh interface ipv6 set dns \"以太网 2\" static ::1");
-	system("netsh interface ip set dns \"以太网 3\" static 127.0.0.1");
-	system("netsh interface ipv6 set dns \"以太网 3\" static ::1");
+	system("netsh interface ip set dns \"本地连接\" static 127.0.0.1");
+	system("netsh interface ipv6 set dns \"本地连接\" static ::1");
 	system("ipconfig /flushdns");
 	system("cls");
 	printf("正在进行DNS解析检测. . .\n\n");
@@ -266,10 +247,8 @@ int RunLocalDNSServer() {
 	system("del data\\stats.db");
 	system("netsh interface ip set dns \"以太网\" dhcp");
 	system("netsh interface ipv6 set dns \"以太网\" dhcp");
-	system("netsh interface ip set dns \"以太网 2\" dhcp");
-	system("netsh interface ipv6 set dns \"以太网 2\" dhcp");
-	system("netsh interface ip set dns \"以太网 3\" dhcp");
-	system("netsh interface ipv6 set dns \"以太网 3\" dhcp");
+	system("netsh interface ip set dns \"本地连接\" dhcp");
+	system("netsh interface ipv6 set dns \"本地连接\" dhcp");
 	system("netsh interface ip set dns \"WLAN\" dhcp");
 	system("netsh interface ipv6 set dns \"WLAN\" dhcp");
 	system("ipconfig /flushdns");
@@ -367,7 +346,8 @@ int Boot() {
 int FixHosts() {
 	printf("正在恢复默认Hosts文件. . .\n\n");
 	hosts = fopen("hosts", "w");
-	fprintf(hosts, "127.0.0.1			localhost\n");
+	fprintf(hosts, "127.0.0.1 localhost\n");
+	fprintf(hosts, "::1 localhost\n");
 	fclose(hosts);
 	system("del %windir%\\System32\\drivers\\etc\\hosts");
 	system("copy hosts %windir%\\System32\\drivers\\etc\\hosts");
