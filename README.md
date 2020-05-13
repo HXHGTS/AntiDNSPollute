@@ -2,11 +2,11 @@
 
 本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可选支持Adblock Plus广告拦截功能，也可仅用于解析出准确ip！
 
-下载地址（64位）：https://lanzous.com/iccepxg
+下载地址（64位）：https://lanzous.com/ickmzaj
 
 AdGuardHome下载地址（64位）：https://lanzous.com/iccen4f
 
-下载地址（32位）：https://lanzous.com/iccepra
+下载地址（32位）：https://lanzous.com/ickmzdc
 
 AdGuardHome下载地址（32位）：https://lanzous.com/iccenne
 
