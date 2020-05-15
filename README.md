@@ -2,13 +2,9 @@
 
 本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可选支持Adblock Plus或AdGuard广告拦截功能，也可直接关闭去广告插件，仅用于解析出准确ip！
 
-[下载地址（64位）](https://lanzous.com/icms5eb)
+[下载地址（64位，需要配合引擎使用）](https://lanzous.com/icn324j) [AdGuardHome下载地址（64位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_amd64.zip)
 
-[AdGuardHome下载地址（64位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_amd64.zip)
-
-[下载地址（32位）](https://lanzous.com/icms5gd)
-
-[AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
+[下载地址（32位，需要配合引擎使用）](https://lanzous.com/icn323i) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
 
 
 ### 使用说明
@@ -35,5 +31,4 @@ WEB登陆默认用户名与密码均为root，可根据自行需要修改，若�
 
 如果不小心关闭本软件，可以重新打开本软件使用模式3恢复默认DNS！！！
 
-
-开发者邮箱：HXHGTS@outlook.com
+#### 开发者邮箱：HXHGTS@outlook.com
