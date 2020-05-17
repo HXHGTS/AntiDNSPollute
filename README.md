@@ -12,7 +12,7 @@
 
 2.支持最新版AdGuardHome特性；
 
-3.对使用Cloudflare CDN加速的workers.dev网站就行解析优化；
+3.对使用Cloudflare CDN加速的workers.dev网站进行解析优化；
 
 ### 使用说明
 
