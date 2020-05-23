@@ -6,9 +6,11 @@
 
 [下载地址（32位，需要配合引擎使用）](https://lanzous.com/icxp4ih) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
 
+[cmroute.dll（下载地址）](https://lanzous.com/icxpbij)
+
 ### 更新日志（2020.5.23）
 
-1.新增自动修改Windows路由表特性，便于直接接管全局类VPN的DNS国内外解析功能；
+1.新增自动修改Windows路由表特性，便于直接接管全局类VPN的DNS国内外解析功能，需要cmroute.dll插件；
 
 2.DNS直接使用宽带带宽解析，避免给服务器增加负载；
 
