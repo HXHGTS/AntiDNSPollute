@@ -2,9 +2,17 @@
 
 本地Windows环境下搭建DNS服务器，避免无良运营商进行dns投毒，并可选支持Adblock Plus或AdGuard广告拦截功能，也可直接关闭去广告插件，仅用于解析出准确ip！
 
-[下载地址（64位，需要配合引擎使用）](https://lanzous.com/icqcx2f) [AdGuardHome下载地址（64位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_amd64.zip)
+[下载地址（64位，需要配合引擎使用）](https://lanzous.com/icxp4hg) [AdGuardHome下载地址（64位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_amd64.zip)
 
-[下载地址（32位，需要配合引擎使用）](https://lanzous.com/icqcx1e) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
+[下载地址（32位，需要配合引擎使用）](https://lanzous.com/icxp4ih) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
+
+### 更新日志（2020.5.23）
+
+1.新增自动修改Windows路由表特性，便于直接接管全局类VPN的DNS国内外解析功能；
+
+2.DNS直接使用宽带带宽解析，避免给服务器增加负载；
+
+3.UI小优化；
 
 ### 更新日志（2020.5.17）
 
