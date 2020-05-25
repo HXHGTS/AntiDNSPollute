@@ -6,7 +6,9 @@
 
 [下载地址（32位，需要配合引擎使用）](https://lanzous.com/icxp4ih) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
 
-[cmroute.dll（下载地址）](https://lanzous.com/icxpbij)
+[cmroute.dll下载地址](https://lanzous.com/icxpbij)
+
+[AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/iczjmle)
 
 ### 更新日志（2020.5.23）
 
