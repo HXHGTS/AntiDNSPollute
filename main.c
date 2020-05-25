@@ -17,8 +17,8 @@ int ResetVPNRoute();
 int Checkdll();
 
 
-int mode,DNSSet,fixmode,DNSServer,ADSwitch,Geo_Mode;
-FILE* yaml,*AdGuardHome,*SystemHosts,*bak,*ADFilter,*AddRouteRules,*DelRouteRules,*dll;
+int mode,DNSSet,fixmode,DNSServer,ADSwitch,Geo_Mode,RouteSwitch;
+FILE* yaml,*AdGuardHome,*SystemHosts,*bak,*ADFilter,*AddRouteRules,*DelRouteRules,*AddDNSRoutes,*DelDNSRoutes,*dll;
 char ADFilterRules[536],domain[50],NSCommand[72],Adapter[60],Command[120],Geo_List[2162];
 char TopDNS[287] = "  - 208.67.222.222:5353\n  - 208.67.220.220:5353\n  - 208.67.222.220:5353\n  - 208.67.220.222:5353\n  - 208.67.222.222:443\n  - 208.67.220.220:443\n  - 208.67.222.220:443\n  - 208.67.220.222:443\n  - 2620:119:35::35:443\n  - 2620:119:35::35:5353\n  - 2620:119:53::53:443\n  - 2620:119:53::53:5353\n";
 char Rewrite[100]="  - domain: '*.workers.dev'\n    answer: 1.0.0.1\n  - domain: '*.cloudflare.com'\n    answer: 1.0.0.1\n";
@@ -34,36 +34,54 @@ MainMenu:system("cls");
 	if (mode == 1) {
 		Boot();
 		Checkdll();
-		ChangeVPNRoute();
+		ChangeDNSRoute();
 		RunLocalDNSServer();
-		system("del AddRouteRules.txt");
-		system("del DelRouteRules.txt");
+		system("del AddDNSRoutes.txt");
+		system("del DelDNSRoutes.txt");
 		goto MainMenu;
 	}
 	else if (mode == 2) {
 		Checkdll();
-		NetFixTool();
+		system("cls");
+		printf("请选择运行模式：\n\n1.启动国内外分流\n\n2.关闭国内外分流\n\n请输入：");
+		scanf("%d", &RouteSwitch);
+		if (RouteSwitch == 1) {
+			ChangeVPNRoute();
+			system("del AddRouteRules.txt");
+		}
+		else {
+			ResetVPNRoute();
+			system("del DelRouteRules.txt");
+		}
+		printf("\n执行成功！\n");
+		system("pause");
 		goto MainMenu;
 	}
 	else if (mode == 3) {
+		Checkdll();
+		NetFixTool();
+		system("del DelDNSRoutes.txt");
+		goto MainMenu;
+	}
+	else if (mode == 4) {
 		Boot();
 		ConfigEditor();
 		goto MainMenu;
 }
-	else if (mode == 4) {
+	else if (mode == 5) {
 		Boot();
 		ConfigToDefault();
 		goto MainMenu;
 }
-	else if (mode == 5) {
+	else if (mode == 6) {
 		NSTool();
 		goto MainMenu;
 	}
-	else if (mode == 6) {
+	else if (mode == 7) {
 		FixHosts();
 		goto MainMenu;
 	}
-	else if (mode == 7) {
+	else if (mode == 8) {
 		Help();
 		goto MainMenu;
 }
@@ -137,7 +155,7 @@ int NetFixTool() {
 }
 
 int Reset() {
-	ResetVPNRoute();
+	ResetDNSRoute();
 	system("taskkill /f /im AdGuardHome.exe");
 	system("del AdGuardHome.yaml");
 	system("rmdir /s/q data");
@@ -169,22 +187,6 @@ Menu3:system("cls");
 int ChangeVPNRoute()
 {
 	AddRouteRules = fopen("AddRouteRules.txt", "w");
-	fprintf(AddRouteRules, "add 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddRouteRules, "add 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
 	fprintf(AddRouteRules, "add 1.0.1.0 mask 255.255.255.0 default METRIC default IF default\n");
 	fprintf(AddRouteRules, "add 1.0.2.0 mask 255.255.254.0 default METRIC default IF default\n");
 	fprintf(AddRouteRules, "add 1.0.8.0 mask 255.255.248.0 default METRIC default IF default\n");
@@ -5984,25 +5986,12 @@ int ChangeVPNRoute()
 	return 0;
 }
 
+
+
+
 int ResetVPNRoute()
 {
 	DelRouteRules = fopen("DelRouteRules.txt", "w");
-	fprintf(DelRouteRules, "delete 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelRouteRules, "delete 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
 	fprintf(DelRouteRules, "delete 1.0.1.0 mask 255.255.255.0 default METRIC default IF default\n");
 	fprintf(DelRouteRules, "delete 1.0.2.0 mask 255.255.254.0 default METRIC default IF default\n");
 	fprintf(DelRouteRules, "delete 1.0.8.0 mask 255.255.248.0 default METRIC default IF default\n");
@@ -12005,8 +11994,54 @@ int Checkdll() {
 	goto Alert;
 }
 
+int ChangeDNSRoute() {
+	AddDNSRoutes = fopen("AddDNSRoutes.txt", "w");
+	fprintf(AddDNSRoutes, "add 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(AddDNSRoutes, "add 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
+	fclose(AddDNSRoutes);
+	system("rundll32.exe cmroute.dll,SetRoutes /STATIC_FILE_NAME AddDNSRoutes.txt /DONT_REQUIRE_URL /IPHLPAPI_ACCESS_DENIED_OK");
+	return 0;
+}
+
+int ResetDNSRoute() {
+	DelDNSRoutes = fopen("DelDNSRoutes.txt", "w");
+	fprintf(DelDNSRoutes, "delete 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
+	fprintf(DelDNSRoutes, "delete 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
+	fclose(DelDNSRoutes);
+	system("rundll32.exe cmroute.dll,SetRoutes /STATIC_FILE_NAME DelDNSRoutes.txt /DONT_REQUIRE_URL /IPHLPAPI_ACCESS_DENIED_OK");
+	return 0;
+}
+
 int UserInterface() {
-	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n2.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n3.自定义DNS配置文件（用于添加自定义上游）\n\n4.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n5.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n6.重置系统Hosts文件\n\n7.在线帮助\n\n0.退出\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n2.全局类VPN软件分流\n\n3.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n6.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n7.重置系统Hosts文件\n\n8.在线帮助\n\n0.退出\n\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	return 0;
