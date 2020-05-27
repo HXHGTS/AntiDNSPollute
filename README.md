@@ -8,7 +8,7 @@
 
 [cmroute.dll下载地址](https://lanzous.com/icxpbij)
 
-[AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/iczjmle)
+[AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/id1ki5c)
 
 [64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczk7nc) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczkgxg)
 
