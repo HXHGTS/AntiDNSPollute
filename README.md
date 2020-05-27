@@ -10,7 +10,15 @@
 
 [AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/id1ki5c)
 
-[64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczk7nc) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczkgxg)
+[64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1kwcd) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczkgxg)
+
+### 更新日志（2020.5.27）
+
+1.新增一键配置全局类VPN一键国内外分流+本地DNS的功能，简化操作；
+
+2.优化部分可能略显繁琐的操作；
+
+3.重传DelRouteRules.txt，上次上传时由于空格可能导致路由表恢复过程失败，现已修复；
 
 ### 更新日志（2020.5.23）
 
