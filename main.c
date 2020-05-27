@@ -44,11 +44,40 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		if (ChangeVPNRoute() == 0) {
+			printf("\n执行国内外分流成功！\n");
+		}
+		else {
+			printf("\n执行国内外分流失败！\n");
+		}
+		ChangeDNSRoute();
+		RunLocalDNSServer();
+		if (ResetVPNRoute() == 0) {
+			printf("\n取消国内外分流成功！\n");
+			}
+		else {
+			printf("\n取消国内外分流失败！\n");
+			}
+		goto MainMenu;
+	}
+	else if (mode == 2) {
+		Boot();
+		if (Boot() != 0) {
+			printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
+			system("pause");
+			goto MainMenu;
+		}
+		Checkdll();
+		if (Checkdll() != 0) {
+			printf("无法找到cmroute.dll，请在网上下载后放入本程序目录下！\n");
+			system("pause");
+			goto MainMenu;
+		}
 		ChangeDNSRoute();
 		RunLocalDNSServer();
 		goto MainMenu;
 	}
-	else if (mode == 2) {
+	else if (mode == 3) {
 		Checkdll();
 		if (Checkdll() != 0) {
 			printf("无法找到cmroute.dll，请在网上下载后放入本程序目录下！\n");
@@ -73,10 +102,9 @@ MainMenu:system("cls");
 				printf("\n执行失败！\n");
 			}
 		}
-		system("pause");
 		goto MainMenu;
 	}
-	else if (mode == 3) {
+	else if (mode == 4) {
 		Checkdll();
 		if (Checkdll() != 0) {
 			printf("无法找到cmroute.dll，请在网上下载后放入本程序目录下！\n");
@@ -86,7 +114,7 @@ MainMenu:system("cls");
 		NetFixTool();
 		goto MainMenu;
 	}
-	else if (mode == 4) {
+	else if (mode == 5) {
 		Boot();
 		if (Boot() != 0) {
 			printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
@@ -96,7 +124,7 @@ MainMenu:system("cls");
 		ConfigEditor();
 		goto MainMenu;
 }
-	else if (mode == 5) {
+	else if (mode == 6) {
 		Boot();
 		if (Boot() != 0) {
 			printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
@@ -106,15 +134,15 @@ MainMenu:system("cls");
 		ConfigToDefault();
 		goto MainMenu;
 }
-	else if (mode == 6) {
+	else if (mode == 7) {
 		NSTool();
 		goto MainMenu;
 	}
-	else if (mode == 7) {
+	else if (mode == 8) {
 		FixHosts();
 		goto MainMenu;
 	}
-	else if (mode == 8) {
+	else if (mode == 9) {
 		Help();
 		goto MainMenu;
 }
@@ -203,18 +231,19 @@ Menu3:system("cls");
 	printf("---------------------------------------------------\n");
 	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
 	printf("---------------------------------------------------\n");
-	printf("\n已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请输入适配器名称，如以太网2，不需要则直接输入@：\n\n");
+	printf("\n已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请输入适配器名称，如以太网2，不需要则直接输入x并按回车：\n\n");
 	scanf("%s", Adapter);
-	if (Adapter[0] != '@') {
+	if (Adapter[0] == 'x'|| Adapter[0] == 'X') {
+		system("del adapter.list");
+		return 0;
+	}
+	else {
 		sprintf(Command, "netsh interface ip set dns %s dhcp", Adapter);
 		system(Command);
 		sprintf(Command, "netsh interface ipv6 set dns %s dhcp", Adapter);
 		system(Command);
-		system("pause");
 		goto Menu3;
 	}
-	system("del adapter.list");
-	return 0;
 }
 
 int ChangeVPNRoute()
@@ -263,7 +292,7 @@ int RunLocalDNSServer() {
 	system("ipconfig /flushdns");
 	system("cls");
 	printf("准备验证DNS，请耐心等待5s，不要退出. . .\n\n");
-	system("TIMEOUT /T 2 /NOBREAK");
+	system("TIMEOUT /T 1 /NOBREAK");
 	printf("\n正在进行DNS解析检测. . .\n\n");
 	printf("正在检测国内网站. . .\n\n");
 	printf("正在检测百度解析情况. . .\n\n");
@@ -291,7 +320,7 @@ Menu2:system("cls");
 	printf("-----------------------------------DNS部署成功！-------------------------------------\n");
 	printf("-------------------------------------------------------------------------------------\n");
 	printf("注意：使用防污染DNS期间请不要关闭本窗口及其弹出窗口，后台最小化即可！！！\n");
-	printf("如需停止DNS解析请务必在本窗口中按\"@\"键正常退出，否则会导致无法上网！！！\n");
+	printf("如需停止DNS解析请不要直接关闭窗口，否则会导致无法上网！！！\n");
 	printf("如果不小心关闭本软件，可以重新打开本软件恢复默认DNS！！！\n");
 	printf("-------------------------------------------------------------------------------------\n\n");
 	printf("检测到计算机上存在的网络适配器：\n");
@@ -299,12 +328,11 @@ Menu2:system("cls");
 	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
 	printf("---------------------------------------------------\n");
 	printf("\n软件已默认配置了\"以太网\"\"WLAN\"适配器上的DNS，如需在其他适配器上配置本地DNS，请输入适配器名称，如\"以太网2\"\n");
-	printf("如需关闭本地DNS并恢复默认DNS设置，请直接输入\"@\"：");
+	printf("如需关闭本地DNS并恢复默认DNS设置，请直接输入x并按回车：");
 	scanf("%s",Adapter);
-	if (Adapter[0] == '@') {
+	if (Adapter[0] == 'x'|| Adapter[0] == 'X') {
 		Reset();
 		printf("\nDNS解析服务器已成功恢复初始设置！\n\n");
-		system("pause");
 		return 0;
 	}
 	else {
@@ -313,7 +341,6 @@ Menu2:system("cls");
 		sprintf(Command, "netsh interface ip set dns %s static ::1",Adapter);
 		system(Command);
 		system("ipconfig /flushdns");
-		system("pause");
 		goto Menu2;
 	}
 	}
@@ -493,7 +520,7 @@ int ResetDNSRoute() {
 }
 
 int UserInterface() {
-	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS（使用时不要关闭本窗口与弹出窗口，每次使用需要重新打开）\n\n2.全局类VPN软件分流\n\n3.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n6.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n7.重置系统Hosts文件\n\n8.在线帮助\n\n0.退出\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.运行国内外分流+本地DNS\n\n2.运行本地DNS（仅启动DNS）\n\n3.全局类VPN软件分流\n\n4.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n5.自定义DNS配置文件（用于添加自定义上游）\n\n6.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n7.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n8.重置系统Hosts文件\n\n9.在线帮助\n\n0.退出\n\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	return 0;
