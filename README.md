@@ -10,7 +10,9 @@
 
 [AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/id1ki5c)
 
-[64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1kwcd) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/iczkgxg)
+[64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1kwcd) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1l71i)
+
+注意：zip包仅是为了方便快速部署而使用，更新频率可能不如单文件，且zip包内含AdGuardHome不保证是最新版，如需使用最新版请尽量下载单文件，更新时可以使用单文件直接替换zip包解压文件夹下同名文件即可！
 
 ### 更新日志（2020.5.27）
 
