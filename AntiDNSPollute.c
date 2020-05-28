@@ -50,7 +50,7 @@ MainMenu:system("cls");
 		else {
 			printf("\n执行国内外分流失败！\n");
 		}
-		ChangeDNSRoute();
+		
 		RunLocalDNSServer();
 		if (ResetVPNRoute() == 0) {
 			printf("\n取消国内外分流成功！\n");
@@ -73,7 +73,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
-		ChangeDNSRoute();
+		
 		RunLocalDNSServer();
 		goto MainMenu;
 	}
@@ -216,7 +216,6 @@ int NetFixTool() {
 }
 
 int Reset() {
-	ResetDNSRoute();
 	system("taskkill /f /im AdGuardHome.exe");
 	system("del AdGuardHome.yaml");
 	system("rmdir /s/q data");
@@ -469,54 +468,6 @@ int Checkdll() {
 	else {
 		return 1;
 	}
-}
-
-int ChangeDNSRoute() {
-	AddDNSRoutes = fopen("AddDNSRoutes.txt", "w");
-	fprintf(AddDNSRoutes, "add 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(AddDNSRoutes, "add 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
-	fclose(AddDNSRoutes);
-	system("rundll32.exe cmroute.dll,SetRoutes /STATIC_FILE_NAME AddDNSRoutes.txt /DONT_REQUIRE_URL /IPHLPAPI_ACCESS_DENIED_OK");
-	system("del AddDNSRoutes.txt");
-	return 0;
-}
-
-int ResetDNSRoute() {
-	DelDNSRoutes = fopen("DelDNSRoutes.txt", "w");
-	fprintf(DelDNSRoutes, "delete 1.0.0.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 1.1.1.1 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 8.8.8.8 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 8.8.4.4 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 9.9.9.9 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 208.67.220.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 208.67.220.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 208.67.222.220 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 208.67.222.222 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 146.112.41.2 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 115.159.131.230 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 149.112.112.112 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 176.103.130.130 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 176.103.130.131 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 130.59.31.251 mask 255.255.255.255 default METRIC default IF default\n");
-	fprintf(DelDNSRoutes, "delete 130.59.31.248 mask 255.255.255.255 default METRIC default IF default\n");
-	fclose(DelDNSRoutes);
-	system("rundll32.exe cmroute.dll,SetRoutes /STATIC_FILE_NAME DelDNSRoutes.txt /DONT_REQUIRE_URL /IPHLPAPI_ACCESS_DENIED_OK");
-	system("del DelDNSRoutes.txt");
-	return 0;
 }
 
 int UserInterface() {
