@@ -44,6 +44,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		system("cls");
 		if (ChangeVPNRoute() == 0) {
 			printf("\n执行国内外分流成功！\n");
 		}
@@ -73,7 +74,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
-		
+		system("cls");
 		RunLocalDNSServer();
 		goto MainMenu;
 	}
@@ -84,6 +85,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		system("cls");
 		printf("请选择运行模式：\n\n1.启动国内外分流\n\n2.关闭国内外分流\n\n请输入：");
 		scanf("%d", &RouteSwitch);
 		if (RouteSwitch == 1) {
@@ -111,6 +113,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		system("cls");
 		NetFixTool();
 		goto MainMenu;
 	}
@@ -121,6 +124,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		system("cls");
 		ConfigEditor();
 		goto MainMenu;
 }
@@ -131,6 +135,7 @@ MainMenu:system("cls");
 			system("pause");
 			goto MainMenu;
 		}
+		system("cls");
 		ConfigToDefault();
 		goto MainMenu;
 }
@@ -157,7 +162,7 @@ MainMenu:system("cls");
 
 int Config_gen() {
 	printf("注意：节点1、8为国内节点，解析速度更快，但可能会留下解析日志，使用请注意！\n\n");
-	printf("指定上游DNS服务器区域：\n\n1.红鱼DNS（阿里云+腾讯云）（加密解析，但服务器在国内，安全性低，解析速度快，适合游戏）\n\n2.Cisco OpenDNS（中国香港）（未加密解析，服务器在国外，解析速度快，适合游戏）\n\n3.Cisco OpenDNS（中国香港）（加密解析，服务器在国外，安全性高）\n\n4.GoogleDNS（美国中部）（加密解析，服务器在国外，安全性高）\n\n5.AdGuardDNS（俄罗斯）（加密解析，服务器在国外，安全性高）\n\n6.IBM Quad9（美国中部）（加密解析，服务器在国外，安全性高）\n\n7.CloudflareDNS（中国香港）（加密解析，服务器在国外，无日志记录，安全性极高）\n\n8.清华大学TUNA666（教育网ipv4+ipv6节点，非加密，解析速度快）\n\n请输入：");
+	printf("指定上游DNS服务器区域：\n\n1.红鱼DNS（阿里云+腾讯云）（加密解析，但服务器在国内，可能有日志）\n\n2.Cisco OpenDNS（中国香港）（未加密解析，服务器在国外，解析速度快，适合游戏）\n\n3.Cisco OpenDNS（中国香港）（加密解析，服务器在国外，安全性高）\n\n4.GoogleDNS（美国中部）（加密解析，服务器在国外，安全性高）\n\n5.AdGuardDNS（俄罗斯）（加密解析，服务器在国外，安全性高）\n\n6.IBM Quad9（美国中部）（加密解析，服务器在国外，安全性高）\n\n7.CloudflareDNS（中国香港）（加密解析，服务器在国外，无日志记录，安全性极高）\n\n8.清华大学TUNA666（教育网节点，非加密，解析速度快）\n\n请输入：");
 	scanf("%d", &DNSServer);
 	system("cls");
 	printf("广告拦截模式：\n\n1.开启Adblock Plus拦截\n\n2.开启AdGuard拦截\n\n3.不拦截\n\n请输入：");
@@ -194,12 +199,12 @@ int Config_gen() {
 		else if (DNSServer == 5)fprintf(yaml, "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: root\n  password: $2a$10$mdmUKhmmhuDQO8GHlU.8xOWzwG6Fy.5o5YUCUWYg2DkyfgYRsM0hy\nhttp_proxy: ""\nlanguage: ""\nrlimit_nofile: 0\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  ratelimit: 0\n  ratelimit_whitelist: []\n  refuse_any: true\n  bootstrap_dns:\n%s  all_servers: true\n  fastest_addr: false\n  edns_client_subnet: true\n  enable_dnssec: true\n  aaaa_disabled: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  cache_size: 0\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  upstream_dns:\n%s%s  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: \n%s  blocked_services: []\ntls:\n  enabled: false\n  server_name: \"\"\n  force_https: false\n  port_https: 443\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: false\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters: %swhitelist_filters: []\nuser_rules:\n%sdhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_file: \"\"\nverbose: false\nschema_version: 6\n", TopDNS,  "  - tls://dns.adguard.com\n  - https://dns.adguard.com/dns-query\n", Geo_List, Rewrite, ADFilterRules, Hosts);
 		else if (DNSServer == 6)fprintf(yaml, "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: root\n  password: $2a$10$mdmUKhmmhuDQO8GHlU.8xOWzwG6Fy.5o5YUCUWYg2DkyfgYRsM0hy\nhttp_proxy: ""\nlanguage: ""\nrlimit_nofile: 0\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  ratelimit: 0\n  ratelimit_whitelist: []\n  refuse_any: true\n  bootstrap_dns:\n%s  all_servers: true\n  fastest_addr: false\n  edns_client_subnet: true\n  enable_dnssec: true\n  aaaa_disabled: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  cache_size: 0\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  upstream_dns:\n%s%s  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: \n%s  blocked_services: []\ntls:\n  enabled: false\n  server_name: \"\"\n  force_https: false\n  port_https: 443\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: false\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters: %swhitelist_filters: []\nuser_rules:\n%sdhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_file: \"\"\nverbose: false\nschema_version: 6\n", TopDNS,  "  - https://dns.quad9.net/dns-query\n  - tls://dns.quad9.net\n", Geo_List, ADFilterRules, Hosts);
 		else if (DNSServer == 7)fprintf(yaml, "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: root\n  password: $2a$10$mdmUKhmmhuDQO8GHlU.8xOWzwG6Fy.5o5YUCUWYg2DkyfgYRsM0hy\nhttp_proxy: ""\nlanguage: ""\nrlimit_nofile: 0\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  ratelimit: 0\n  ratelimit_whitelist: []\n  refuse_any: true\n  bootstrap_dns:\n%s  all_servers: true\n  fastest_addr: false\n  edns_client_subnet: true\n  enable_dnssec: true\n  aaaa_disabled: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  cache_size: 0\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  upstream_dns:\n%s%s  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: \n%s  blocked_services: []\ntls:\n  enabled: false\n  server_name: \"\"\n  force_https: false\n  port_https: 443\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: false\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters: %swhitelist_filters: []\nuser_rules:\n%sdhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_file: \"\"\nverbose: false\nschema_version: 6\n", TopDNS,  "  - tls://1dot1dot1dot1.cloudflare-dns.com\n  - https://dns.cloudflare.com/dns-query\n", Geo_List, Rewrite, ADFilterRules, Hosts);
-		else fprintf(yaml, "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: root\n  password: $2a$10$mdmUKhmmhuDQO8GHlU.8xOWzwG6Fy.5o5YUCUWYg2DkyfgYRsM0hy\nhttp_proxy: ""\nlanguage: ""\nrlimit_nofile: 0\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  ratelimit: 0\n  ratelimit_whitelist: []\n  refuse_any: true\n  bootstrap_dns:\n%s  all_servers: true\n  fastest_addr: false\n  edns_client_subnet: true\n  enable_dnssec: true\n  aaaa_disabled: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  cache_size: 0\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  upstream_dns:\n%s%s  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: \n%s  blocked_services: []\ntls:\n  enabled: false\n  server_name: \"\"\n  force_https: false\n  port_https: 443\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: false\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters: %swhitelist_filters: []\nuser_rules:\n%sdhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_file: \"\"\nverbose: false\nschema_version: 6\n", "  - 101.6.6.6:5353\n  - 2001:da8::666\n", "  - 101.6.6.6:5353\n  - 2001:da8::666\n", Geo_List, Rewrite, ADFilterRules, Hosts);
+		else fprintf(yaml, "bind_host: 0.0.0.0\nbind_port: 80\nusers:\n- name: root\n  password: $2a$10$mdmUKhmmhuDQO8GHlU.8xOWzwG6Fy.5o5YUCUWYg2DkyfgYRsM0hy\nhttp_proxy: ""\nlanguage: ""\nrlimit_nofile: 0\nweb_session_ttl: 720\ndns:\n  bind_host: 0.0.0.0\n  port: 53\n  statistics_interval: 1\n  querylog_enabled: true\n  querylog_interval: 90\n  querylog_size_memory: 1000\n  anonymize_client_ip: false\n  protection_enabled: true\n  blocking_mode: default\n  blocking_ipv4: \"\"\n  blocking_ipv6: \"\"\n  blocked_response_ttl: 10\n  ratelimit: 0\n  ratelimit_whitelist: []\n  refuse_any: true\n  bootstrap_dns:\n%s  all_servers: true\n  fastest_addr: false\n  edns_client_subnet: true\n  enable_dnssec: true\n  aaaa_disabled: false\n  allowed_clients: []\n  disallowed_clients: []\n  blocked_hosts: []\n  parental_block_host: family-block.dns.adguard.com\n  safebrowsing_block_host: standard-block.dns.adguard.com\n  cache_size: 0\n  cache_ttl_min: 0\n  cache_ttl_max: 0\n  upstream_dns:\n%s%s  filtering_enabled: true\n  filters_update_interval: 24\n  parental_enabled: false\n  safesearch_enabled: false\n  safebrowsing_enabled: false\n  safebrowsing_cache_size: 1048576\n  safesearch_cache_size: 1048576\n  parental_cache_size: 1048576\n  cache_time: 30\n  rewrites: \n%s  blocked_services: []\ntls:\n  enabled: false\n  server_name: \"\"\n  force_https: false\n  port_https: 443\n  port_dns_over_tls: 853\n  allow_unencrypted_doh: false\n  strict_sni_check: false\n  certificate_chain: \"\"\n  private_key: \"\"\n  certificate_path: \"\"\n  private_key_path: \"\"\nfilters: %swhitelist_filters: []\nuser_rules:\n%sdhcp:\n  enabled: false\n  interface_name: \"\"\n  gateway_ip: \"\"\n  subnet_mask: \"\"\n  range_start: \"\"\n  range_end: \"\"\n  lease_duration: 86400\n  icmp_timeout_msec: 1000\nclients: []\nlog_file: \"\"\nverbose: false\nschema_version: 6\n", "  - 101.6.6.6:5353\n", "  - 101.6.6.6:5353\n", Geo_List, Rewrite, ADFilterRules, Hosts);
 		fclose(yaml);
 		system("cls");
 		if(DNSServer==1)printf("\n已选定：%s\n\n","红鱼DNS（阿里云+腾讯云）");
-		else if (DNSServer == 2)printf("\n已选定：%s\n\n", "Cisco OpenDNS（中国香港）未加密版");
-		else if (DNSServer == 3)printf("\n已选定：%s\n\n", "Cisco OpenDNS（中国香港）加密版");
+		else if (DNSServer == 2)printf("\n已选定：%s\n\n", "Cisco OpenDNS 非标准端口（中国香港）");
+		else if (DNSServer == 3)printf("\n已选定：%s\n\n", "Cisco OpenDNS 加密版（中国香港）");
 		else if (DNSServer == 4)printf("\n已选定：%s\n\n", "GoogleDNS（美国中部）");
 		else if (DNSServer == 5)printf("\n已选定：%s\n\n", "AdGuardDNS（俄罗斯）");
 		else if (DNSServer == 6)printf("\n已选定：%s\n\n", "IBM Quad9（美国中部）");
@@ -231,23 +236,13 @@ int Reset() {
 	system("netsh interface ipv6 set dns \"WLAN\" dhcp");
 	system("ipconfig /flushdns");
 Menu3:system("cls");
-	printf("检测到计算机上存在的网络适配器：\n\n");
+	printf("检测到计算机上存在的网络适配器：\n");
 	printf("---------------------------------------------------\n");
 	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
-	printf("---------------------------------------------------\n");
-	printf("\n已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请输入适配器名称，如以太网2，不需要则直接输入x并按回车：\n\n");
-	scanf("%s", Adapter);
-	if (Adapter[0] == 'x'|| Adapter[0] == 'X') {
-		system("del adapter.list");
-		return 0;
-	}
-	else {
-		sprintf(Command, "netsh interface ip set dns %s dhcp", Adapter);
-		system(Command);
-		sprintf(Command, "netsh interface ipv6 set dns %s dhcp", Adapter);
-		system(Command);
-		goto Menu3;
-	}
+	printf("---------------------------------------------------\n\n");
+	printf("\n已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请手动恢复！\n\n");
+	system("del adapter.list");
+	return 0;
 }
 
 int ChangeVPNRoute()
@@ -279,11 +274,6 @@ int ResetVPNRoute()
 
 int RunLocalDNSServer() {
 	printf("正在初始化. . .\n\n");
-	system("netsh interface ip set dns \"以太网\" dhcp");
-	system("netsh interface ipv6 set dns \"以太网\" dhcp");
-	system("netsh interface ip set dns \"WLAN\" dhcp");
-	system("netsh interface ipv6 set dns \"WLAN\" dhcp");
-	system("ipconfig /flushdns");
 	printf("\n正在准备配置文件. . .\n\n");
 	system("copy /y index.yaml AdGuardHome.yaml");
 	printf("\n正在部署DNS解析服务器. . .\n\n");
@@ -330,8 +320,13 @@ Menu2:system("cls");
 	printf("检测到计算机上存在的网络适配器：\n");
 	printf("---------------------------------------------------\n");
 	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
+	printf("---------------------------------------------------\n\n");
+	printf("本地DNS可通过以下ip地址远程共享：\n");
 	printf("---------------------------------------------------\n");
-	printf("\n软件已默认配置了\"以太网\"\"WLAN\"适配器上的DNS，如需在其他适配器上配置本地DNS，请输入适配器名称，如\"以太网2\"\n");
+	system("type adapter.list | find \"IPv4 地址\"");
+	system("type adapter.list | find \"IPv6 地址\"");
+	printf("---------------------------------------------------\n");
+	printf("\n软件已默认配置了\"以太网\"\"WLAN\"适配器上的DNS，如需在其他适配器上配置本地DNS，请自行配置其为127.0.0.1与::1即可！\n");
 	printf("如需关闭本地DNS并恢复默认DNS设置，请直接输入x并按回车：");
 	scanf("%s",Adapter);
 	if (Adapter[0] == 'x'|| Adapter[0] == 'X') {
@@ -340,11 +335,6 @@ Menu2:system("cls");
 		return 0;
 	}
 	else {
-		sprintf(Command, "netsh interface ip set dns %s static 127.0.0.1",Adapter);
-		system(Command);
-		sprintf(Command, "netsh interface ip set dns %s static ::1",Adapter);
-		system(Command);
-		system("ipconfig /flushdns");
 		goto Menu2;
 	}
 	}
