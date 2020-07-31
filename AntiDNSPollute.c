@@ -20,9 +20,9 @@ int mode,DNSSet,fixmode,DNSServer,ADSwitch,Geo_Mode,RouteSwitch;
 FILE* yaml,*AdGuardHome,*SystemHosts,*bak,*ADFilter,*AddRouteRules,*DelRouteRules,*AddDNSRoutes,*DelDNSRoutes,*dll;
 char ADFilterRules[536],domain[50],NSCommand[72],Adapter[60],Command[120],Geo_List[2162];
 char TopDNS[287] = "  - 208.67.222.222:5353\n  - 208.67.220.220:5353\n  - 208.67.222.220:5353\n  - 208.67.220.222:5353\n";
-char Rewrite[159]="  - domain: '*.workers.dev'\n    answer: 1.0.0.1\n  - domain: '*.cloudflare.com'\n    answer: 1.0.0.1\n  - domain: '*.s3.amazonaws.com'\n    answer: 52.216.112.99\n";
+char Rewrite[296]="  - domain: '*.workers.dev'\n    answer: 1.0.0.1\n  - domain: '*.cloudflare.com'\n    answer: 1.0.0.1\n  - domain: '*.s3.amazonaws.com'\n    answer: 's3.amazonaws.com'\n  - domain: '*.githubusercontent.com'\n    answer: 151.101.76.133\n  - domain: '*.pdx01.abs.hls.ttvnw.net'\n    answer: 35.164.243.189\n";
 char WhiteList[2159]="  - '[/netease.com/]119.29.29.29'\n  - '[/126.net/]119.29.29.29'\n  - '[/icourse163.org/]119.29.29.29'\n  - '[/yeah.net/]119.29.29.29'\n  - '[/126.com/]119.29.29.29'\n  - '[/163.com/]119.29.29.29'\n  - '[/google.cn/]119.29.29.29'\n  - '[/baidu.com/]119.29.29.29'\n  - '[/baidupcs.com/]119.29.29.29'\n  - '[/bdstatic.com/]119.29.29.29'\n  - '[/bilibili.com/]119.29.29.29'\n  - '[/bilivideo.com/]119.29.29.29'\n  - '[/akamaized.net/]119.29.29.29'\n  - '[/hdslb.com/]119.29.29.29'\n  - '[/qq.com/]119.29.29.29'\n  - '[/douyu.com/]119.29.29.29'\n  - '[/huya.com/]119.29.29.29'\n  - '[/aliyun.com/]119.29.29.29'\n  - '[/alicdn.com/]119.29.29.29'\n  - '[/alipay.com/]119.29.29.29'\n  - '[/taobao.com/]119.29.29.29'\n  - '[/tmall.com/]119.29.29.29'\n  - '[/jd.com/]119.29.29.29'\n  - '[/zxxk.com/]119.29.29.29'\n  - '[/cnzz.com/]119.29.29.29'\n  - '[/chaoxing.com/]119.29.29.29'\n  - '[/snnu.edu.cn/]119.29.29.29'\n  - '[/ipip.net/]119.29.29.29'\n  - '[/7moor.com/]119.29.29.29'\n  - '[/t.cn/]119.29.29.29'\n  - '[/chinaz.com/]119.29.29.29'\n  - '[/uzer.me/]119.29.29.29'\n  - '[/lanzou.com/]119.29.29.29'\n  - '[/lanzous.com/]119.29.29.29'\n  - '[/baidupan.com/]119.29.29.29'\n  - '[/v.smtcdns.com/]119.29.29.29'\n  - '[/youku.com/]119.29.29.29'\n  - '[/ott.cibntv.net/]119.29.29.29'\n  - '[/zhihu.com/]119.29.29.29'\n  - '[/zhimg.com/]119.29.29.29'\n  - '[/cnki.net/]119.29.29.29'\n  - '[/iqiyi.com/]119.29.29.29'\n  - '[/qy.net/]119.29.29.29'\n  - '[/iqiyipic.com/]119.29.29.29'\n  - '[/acfun.cn/]119.29.29.29'\n  - '[/aixifan.com/]119.29.29.29'\n  - '[/yximgs.com/]119.29.29.29'\n  - '[/ksurl.cn/]119.29.29.29'\n  - '[/139.com/]119.29.29.29'\n  - '[/10086.cn/]119.29.29.29'\n  - '[/189.cn/]119.29.29.29'\n  - '[/knet.cn/]119.29.29.29'\n  - '[/10010.cn/]119.29.29.29'\n  - '[/10010.com/]119.29.29.29'\n  - '[/weibo.com/]119.29.29.29'\n  - '[/sina.com.cn/]119.29.29.29'\n  - '[/sohu.com/]119.29.29.29'\n  - '[/cctv.cn/]119.29.29.29'\n  - '[/nn.com/]119.29.29.29'\n  - '[/xunyou.com/]119.29.29.29'\n  - '[/leigod.com/]119.29.29.29'\n  - '[/gitee.io/]119.29.29.29'\n  - '[/eccdnx.com/]119.29.29.29'\n  - '[/iplaysoft.com/]119.29.29.29'\n  - '[/jianshu.com/]119.29.29.29'\n  - '[/edu.cn/]119.29.29.29'\n  - '[/gov.cn/]119.29.29.29'\n";
-char Hosts[1055]="- 151.101.248.133 raw.githubusercontent.com\n- 151.101.108.133 avatars2.githubusercontent.com\n- 151.101.76.133 avatars3.githubusercontent.com\n- 18.179.245.253 api.github.com\n- 23.160.0.107 video-weaver.arn03.hls.ttvnw.net\n- 45.113.131.6 video-weaver.hkg01.hls.ttvnw.net\n- 192.108.239.107 video-weaver.ams02.hls.ttvnw.net\n- 192.108.239.108 video-weaver.lhr03.hls.ttvnw.net\n- 52.223.241.1 video-weaver.sea01.hls.ttvnw.net\n- 52.223.241.2 video-weaver.atl01.hls.ttvnw.net\n- 52.223.241.3 video-weaver.hou01.hls.ttvnw.net\n- 52.223.241.5 video-weaver.iad03.hls.ttvnw.net\n- 52.223.241.7 video-weaver.lax03.hls.ttvnw.net\n- 3.217.207.251 public-ubiservices.ubi.com\n- 216.98.50.146 public-im-ubiservices.ubi.com\n- 216.98.50.146 msr-public-ubiservices.ubi.com\n- 216.98.50.146 public-ws.aws-ubiservices.ubi.com\n- 216.98.50.146 public.aws-ubiservices.ubi.com\n- 216.98.50.146 public-ws-ubiservices.ubi.com\n- 216.98.50.146 api-ubiservices.ubi.com\n- 216.98.50.146 lb-upc-dmx.ubisoft.com\n- 216.98.50.146 msr-api-ubiservices.ubi.com\n- 216.98.50.146 dmx.upc.ubisoft.com\n- \"\"\n";
+char Hosts[1262]="- \"\"\n";
 char ABP_Filter[529]="\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt\n  name: ABP filters\n  id: 1588581704\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/easyprivacy.txt\n  name: EasyPrivacy\n  id: 1588581706\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/fanboy-social.txt\n  name: Fanboy's Social Blocking List\n  id: 1588581707\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/easylistchina+easylist.txt\n  name: EasyList China+EasyList\n  id: 1588581708\n";
 char AdGuard_Filter[533]="\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/2.txt\n  name: AdGuard Base filter\n  id: 1589448814\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/3.txt\n  name: AdGuard Tracking Protection filter\n  id: 1589448815\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/4.txt\n  name: AdGuard Social Media filter\n  id: 1589448816\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/easylistchina.txt\n  name: EasyList China\n  id: 1589448817\n";
 
@@ -31,7 +31,6 @@ int main() {
 MainMenu:system("cls");
 	UserInterface();
 	if (mode == 1) {
-		Boot();
 		if (Boot() != 0) {
 			printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
 			system("pause");
@@ -44,41 +43,10 @@ MainMenu:system("cls");
 			goto MainMenu;
 		}
 		system("cls");
-		if (ChangeVPNRoute() == 0) {
-			printf("\n执行国内外分流成功！\n");
-		}
-		else {
-			printf("\n执行国内外分流失败！\n");
-		}
-		
 		RunLocalDNSServer();
-		if (ResetVPNRoute() == 0) {
-			printf("\n取消国内外分流成功！\n");
-			}
-		else {
-			printf("\n取消国内外分流失败！\n");
-			}
 		goto MainMenu;
 	}
 	else if (mode == 2) {
-		Boot();
-		if (Boot() != 0) {
-			printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
-			system("pause");
-			goto MainMenu;
-		}
-		Checkdll();
-		if (Checkdll() != 0) {
-			printf("无法找到cmroute.dll，请在网上下载后放入本程序目录下！\n");
-			system("pause");
-			goto MainMenu;
-		}
-		system("cls");
-		RunLocalDNSServer();
-		goto MainMenu;
-	}
-	else if (mode == 3) {
-		Checkdll();
 		if (Checkdll() != 0) {
 			printf("无法找到cmroute.dll，请在网上下载后放入本程序目录下！\n");
 			system("pause");
@@ -103,6 +71,13 @@ MainMenu:system("cls");
 				printf("\n执行失败！\n");
 			}
 		}
+		goto MainMenu;
+	}
+	else if (mode == 3) {
+		Boot();
+		system("cls");
+		printf("请在弹出窗口中修改，记得保存. . .\n");
+		system("notepad hosts");
 		goto MainMenu;
 	}
 	else if (mode == 4) {
@@ -271,8 +246,10 @@ int ResetVPNRoute()
 
 int RunLocalDNSServer() {
 	printf("正在初始化. . .\n\n");
-	system("copy %windir%\\System32\\drivers\\etc\\hosts hosts.bak");
+	system("copy /y hosts %windir%\\System32\\drivers\\etc\\hosts");
+	system("copy /y %windir%\\System32\\drivers\\etc\\hosts hosts.bak");
 	system("del %windir%\\System32\\drivers\\etc\\hosts");
+	system("copy /y hosts %windir%\\System32\\drivers\\etc\\hosts");
 	printf("\n正在准备配置文件. . .\n\n");
 	system("copy /y index.yaml AdGuardHome.yaml");
 	printf("\n正在部署DNS解析服务器. . .\n\n");
@@ -428,6 +405,12 @@ int Boot() {
 	system("rmdir /s/q data");
 	system("rmdir /s/q agh-backup");
 	system("cls");
+	if ((fopen("hosts", "r")) == NULL) {
+		SystemHosts = fopen("hosts", "w");
+		fprintf(SystemHosts, "##可以在下面自由添加需要的hosts信息，仅会在模式1下生效!\n");
+		fprintf(SystemHosts, "127.0.0.1 localhost\n");
+		fclose(SystemHosts);
+	}
 	if ((AdGuardHome = fopen("AdGuardHome.exe", "r")) == NULL) {
 		return 1;
 	}
@@ -467,7 +450,7 @@ int Checkdll() {
 }
 
 int UserInterface() {
-	printf("请选择DNS服务器运行方式：\n\n1.运行国内外分流+本地DNS\n\n2.运行本地DNS（仅启动DNS）\n\n3.全局类VPN软件分流\n\n4.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n5.自定义DNS配置文件（用于添加自定义上游）\n\n6.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n7.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n8.重置系统Hosts文件\n\n9.在线帮助\n\n0.退出\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS\n\n2.全局类VPN软件分流\n\n3.自定义DNS解析Hosts(仅模式1开启时有效)\n\n4.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n5.自定义DNS配置文件（用于添加自定义上游）\n\n6.重置配置文件（自定义失败时可用于恢复默认，用户名密码也将被重置）\n\n7.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n8.重置系统Hosts文件\n\n9.在线帮助\n\n0.退出\n\n请输入：");
 	scanf("%d", &mode);
 	system("cls");
 	return 0;
