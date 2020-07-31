@@ -6,13 +6,15 @@
 
 [下载地址（单文件32位，需要配合AdGuardHome使用）](https://lanzous.com/id1kp0j) [AdGuardHome下载地址（32位）](https://static.adguard.com/adguardhome/release/AdGuardHome_Windows_386.zip)
 
-[cmroute.dll下载地址](https://lanzous.com/icxpbij)
-
-[AddRouteRules.txt下载地址](https://lanzous.com/iczjmkd) [DelRouteRules.txt下载地址](https://lanzous.com/id1ki5c)
-
 [64位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1kwcd) [32位zip包下载（包括软件与所有必需文件）](https://lanzous.com/id1l71i)
 
 注意：zip包仅是为了方便快速部署而使用，更新频率可能不如单文件，且zip包内含AdGuardHome不保证是最新版，如需使用最新版请尽量下载单文件，更新时可以使用单文件直接替换zip包解压文件夹下同名文件即可！
+
+### 更新日志（2020.7.31）
+
+1.删除配置全局类VPN一键国内外分流功能，增加安全性，需要此功能请使用SmartDNS智能国内外分流；
+
+2.支持自定义模式1的临时hosts文件，自动备份系统hosts；
 
 ### 更新日志（2020.5.27）
 
