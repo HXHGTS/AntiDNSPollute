@@ -16,3 +16,67 @@
 
 117.18.232.200 r6pcaddons.azureedge.net
 
+##DigitalOcean
+
+151.101.77.194 cloud-cdn-digitalocean-com.global.ssl.fastly.net
+
+##Cloudflare CDN
+
+1.0.0.1 justmysocks.net
+
+1.0.0.1 justmysocks2.net
+
+1.0.0.1 www.carrotchou.com
+
+1.0.0.1 i.loli.net
+
+1.0.0.1 fonts.loli.net
+
+1.0.0.1 v2ray.com
+
+1.0.0.1 www.v2ray.com
+
+##Twitch
+
+151.101.78.167 www.twitch.tv
+
+151.101.78.167 twitch.tv
+
+151.101.78.167 twitch.map.fastly.net
+
+151.101.78.167 polyfill.twitchsvc.net
+
+151.101.66.167 static.twitchcdn.net
+
+151.101.78.214 api.twitch.tv
+
+151.101.78.167 gql.twitch.tv
+
+151.101.78.214 static-cdn.jtvnw.net
+
+52.88.29.155 pubsub-edge.twitch.tv
+
+52.35.80.21 countess.twitch.tv
+
+52.24.201.132 irc-ws.chat.twitch.tv
+
+13.225.99.10 panels-images.twitch.tv
+
+13.225.99.23 extension-files.twitch.tv
+
+52.218.204.26 science-output.s3.amazonaws.com
+
+54.69.111.11 video-edge-0a2857.pdx01.abs.hls.ttvnw.net
+
+54.149.13.1 video-edge-ac60ac.pdx01.abs.hls.ttvnw.net
+
+192.108.239.108 video-weaver.lhr03.hls.ttvnw.net
+
+45.113.131.6 video-weaver.hkg01.hls.ttvnw.net
+
+192.108.239.107 video-weaver.ams02.hls.ttvnw.net
+
+52.223.241.7 video-weaver.lax03.hls.ttvnw.net
+
+52.223.241.1 video-weaver.sea01.hls.ttvnw.net
+
