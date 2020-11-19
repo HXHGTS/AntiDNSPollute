@@ -66,4 +66,6 @@ WEB登陆默认用户名与密码均为root，可根据自行需要修改，若�
 
 5.OpenDNS开始完全使用加密解析，非标准端口解析仅用作解析上游，不再直接解析结果；
 
-#### 开发者邮箱：HXHGTS@outlook.com
+#### 开发者邮箱：
+
+[admin@hxhgts.cf](mailto:admin@hxhgts.cf)
