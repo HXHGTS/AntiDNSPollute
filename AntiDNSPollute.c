@@ -13,7 +13,7 @@ int Config_gen();
 int Reset();
 
 
-int mode,DNSSet,fixmode,DNSServer,ADSwitch;
+int mode,DNSSet,fixmode,DNSServer,ADSwitch,ret,Num;
 FILE* yaml,*AdGuardHome,*SystemHosts,*bak,*ADFilter,*dll;
 char ADFilterRules[536],domain[50],NSCommand[72],Adapter[60], WhiteList[2494],Command[120];
 char TopDNS[35] = "  - 119.29.29.29\n  - 119.28.28.28\n";//定义上游DNS服务器为腾讯DNS，与最终结果无关
@@ -24,7 +24,7 @@ char AdGuard_Filter[533]="\n- enabled: true\n  url: https://filters.adtidy.org/e
 
 int UserInterface() {
 	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS\n\n2.自定义DNS解析Hosts(仅模式1开启时有效)\n\n3.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.重置DNS配置文件（用于恢复默认，用户名密码也将被重置）\n\n6.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n7.重置系统Hosts文件\n\n8.在线帮助\n\n0.退出\n\n请输入：");
-	scanf("%d", &mode);
+	ret=scanf("%d", &mode);
 	system("cls");
 	return 0;
 }
@@ -99,10 +99,10 @@ MainMenu:system("cls");
 
 int Config_gen() {
 	printf("指定上游DNS服务器区域：\n\n1.OpenDNS（中国香港）\n\n2.GoogleDNS（美国中部）\n\n3.NextDNS非加密版（欧盟）\n\n4.Quad9（美国中部）\n\n5.CloudflareDNS（中国香港）\n\n6.Quad101DNS（中国台湾）\n\n请输入：");
-	scanf("%d", &DNSServer);
+	ret=scanf("%d", &DNSServer);
 	system("cls");
 		printf("广告拦截模式：\n\n1.开启Adblock Plus拦截\n\n2.开启AdGuard拦截\n\n3.不拦截\n\n请输入：");
-		scanf("%d", &ADSwitch);
+		ret=scanf("%d", &ADSwitch);
 		system("cls");
 		yaml = fopen("index.yaml", "w");
 		if (ADSwitch == 1) {
@@ -151,14 +151,15 @@ int Reset() {
 	system("netsh interface ipv6 set dns \"以太网\" dhcp");
 	system("netsh interface ip set dns \"WLAN\" dhcp");
 	system("netsh interface ipv6 set dns \"WLAN\" dhcp");
+	for (Num = 2; Num < 10; Num++) {
+		sprintf(Command, "netsh interface ip set dns \"以太网 %d\" dhcp",Num);
+		system(Command);
+		sprintf(Command, "netsh interface ipv6 set dns \"以太网 %d\" dhcp", Num);
+		system(Command);
+	}
 	system("ipconfig /flushdns");
 	system("cls");
-	printf("检测到计算机上存在的网络适配器：\n");
-	printf("---------------------------------------------------\n");
-	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
-	printf("---------------------------------------------------\n\n");
-	printf("\n已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请手动恢复！\n\n");
-	system("del adapter.list");
+	printf("已自动恢复“以太网”“WLAN”适配器设置，如需恢复其它适配器，请手动恢复！\n\n");
 	return 0;
 }
 
@@ -175,6 +176,12 @@ int RunLocalDNSServer() {
 	system("netsh interface ipv6 set dns \"以太网\" static ::1");
 	system("netsh interface ip set dns \"WLAN\" static 127.0.0.1");
 	system("netsh interface ipv6 set dns \"WLAN\" static ::1");
+	for (Num = 2; Num < 10; Num++) {
+		sprintf(Command, "netsh interface ip set dns \"以太网 %d\" static 127.0.0.1", Num);
+		system(Command);
+		sprintf(Command, "netsh interface ipv6 set dns \"以太网 %d\" static ::1", Num);
+		system(Command);
+	}
 	system("ipconfig /flushdns");
 Menu2:system("cls");
 	printf("-------------------------------------------------------------------------------------\n");
@@ -184,18 +191,9 @@ Menu2:system("cls");
 	printf("如需停止DNS解析请不要直接关闭窗口，否则会导致无法上网！！！\n");
 	printf("如果不小心关闭本软件，可以重新打开本软件恢复默认DNS！！！\n");
 	printf("-------------------------------------------------------------------------------------\n\n");
-	printf("检测到计算机上存在的网络适配器：\n");
-	printf("---------------------------------------------------\n");
-	system("ipconfig /all >adapter.list &type adapter.list | find \"适配器\"");
-	printf("---------------------------------------------------\n\n");
-	printf("本地DNS可通过以下ip地址远程共享：\n");
-	printf("---------------------------------------------------\n");
-	system("type adapter.list | find \"IPv4 地址\"");
-	system("type adapter.list | find \"IPv6 地址\"");
-	printf("---------------------------------------------------\n");
 	printf("\n软件已默认配置了\"以太网\"\"WLAN\"适配器上的DNS，如需在其他适配器上配置本地DNS，请自行配置其为127.0.0.1与::1即可！\n");
 	printf("如需关闭本地DNS并恢复默认DNS设置，请直接输入x并按回车：");
-	scanf("%s",Adapter);
+	ret=scanf("%s",Adapter);
 	if (Adapter[0] == 'x'|| Adapter[0] == 'X') {
 		Reset();
 		printf("\nDNS解析服务器已成功恢复初始设置！\n\n");
@@ -209,7 +207,7 @@ Menu2:system("cls");
 
 int ConfigEditor() {
 	printf("请选择修改方式：\n\n1.图形界面（用户名与密码默认均为root）\n\n2.记事本\n\n请输入：");
-	scanf("%d", &fixmode);
+	ret=scanf("%d", &fixmode);
 	if (fixmode == 2) {
 		if ((yaml = fopen("index.yaml", "r")) == NULL) {
 			Config_gen();
@@ -240,7 +238,7 @@ int ConfigEditor() {
 int ConfigToDefault() {
 	if ((bak = fopen("index.yaml.bak", "r")) != NULL){
 		printf("软件目录中找到上次的配置备份，请选择恢复模式：\n\n1.恢复到上一次的配置\n\n2.恢复初始状态\n\n请输入：");
-		scanf("%d", &fixmode);
+		ret=scanf("%d", &fixmode);
 		if (fixmode == 1) {
 			system("copy /y index.yaml.bak index.yaml");
 			printf("\n已成功恢复到上一次的配置！\n");
@@ -263,7 +261,7 @@ int NSTool() {
 	system("ipconfig /flushdns");
 	NSMenu:system("cls");
 	printf("请输入要查询的域名,返回上一级请输入@：\n");
-	scanf("%s",domain );
+	ret=scanf("%s",domain );
 	if (domain[0] == '@') {
 		system("taskkill /f /im AdGuardHome.exe");
 		system("del AdGuardHome.yaml");
