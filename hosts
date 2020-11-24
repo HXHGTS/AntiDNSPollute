@@ -1,8 +1,8 @@
 ##可以在下面自由添加需要的hosts信息，仅会在模式1下生效!
 
-## uplay
-
 127.0.0.1 localhost
+
+## uplay
 
 23.200.142.25 uplaypc-s-ubisoft.cdn.ubi.com
 
