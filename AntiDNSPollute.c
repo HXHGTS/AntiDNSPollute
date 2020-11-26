@@ -186,7 +186,7 @@ Menu3:system("ipconfig /flushdns");
 	system("ipconfig /all | find \"以太网适配器\"");
 	system("ipconfig /all | find \"无线局域网适配器\"");
 	printf("-------------------------------------------------------------------------------------\n");
-	printf("软件已默认配置了\"以太网\"\"WLAN\"适配器上的DNS\n");
+	printf("软件已默认恢复了\"以太网\"\"WLAN\"适配器上的DNS，如果仍然无法联网，请恢复hosts!\n");
 	printf("如需在其他适配器上恢复默认DNS，请输入适配器名称并回车\n");
 	printf("如需关闭本地DNS并恢复默认DNS设置，请直接输入x并按回车：");
 	ret = scanf("%s", Adapter);
@@ -204,7 +204,14 @@ Menu3:system("ipconfig /flushdns");
 }
 
 int RunLocalDNSServer() {
+	char SystemDir[50];
 	printf("正在初始化. . .\n\n");
+	sprintf(SystemDir, "%s\\System32\\drivers\\etc\\hosts", getenv("windir"));
+	if (fopen(SystemDir, "r") == NULL) {
+		SystemHosts = fopen(SystemDir, "w");
+		fprintf(SystemHosts, "127.0.0.1 localhost\n");
+		fclose(SystemHosts);
+	}
 	system("copy /y %windir%\\System32\\drivers\\etc\\hosts hosts.bak");
 	system("copy /y hosts %windir%\\System32\\drivers\\etc\\hosts");
 	system("copy /y index.yaml AdGuardHome.yaml");
@@ -357,11 +364,11 @@ int Boot() {
 
 int FixHosts() {
 	printf("正在恢复默认Hosts文件. . .\n\n");
-	SystemHosts = fopen("hosts.0", "w");
+	SystemHosts = fopen("hosts.origin", "w");
 	fprintf(SystemHosts, "127.0.0.1 localhost\n");
 	fclose(SystemHosts);
-	system("copy /y hosts.0 %windir%\\System32\\drivers\\etc\\hosts");
-	system("del hosts.0");
+	system("copy /y hosts.origin %windir%\\System32\\drivers\\etc\\hosts");
+	system("del hosts.origin");
 	system("ipconfig /flushdns");
 	printf("\n已成功恢复默认Hosts文件！\n\n");
 	system("pause");
