@@ -15,7 +15,7 @@ int Update();
 
 int mode,DNSSet,fixmode,DNSServer,ADSwitch,ret,share;
 FILE* yaml,*AdGuardHome,*SystemHosts,*bak,*ADFilter,*dll, * cv, * sv;
-char ADFilterRules[536],domain[50],NSCommand[72],Adapter[60], WhiteList[2494],Command[120],current_version[15], source_version[15];
+char ADFilterRules[536],domain[50],NSCommand[72],Adapter[60], WhiteList[2494],Command[120],adguard_current_version[15], adguard_source_version[15],anti_current_version[4]="5.1", anti_source_version[4];
 char TopDNS[35] = "  - 119.29.29.29\n  - 119.28.28.28\n";//定义上游DNS服务器为腾讯DNS，与最终结果无关
 char Rewrite[260]="  - domain: '*.workers.dev'\n    answer: cdn-direct.hxhgts.cf\n  - domain: '*.cloudflare.com'\n    answer: cdn-direct.hxhgts.cf\n  - domain: '*.s3.amazonaws.com'\n    answer: 's3.amazonaws.com'\n  - domain: 'steamcommunity.com'\n    answer: 'store.steampowered.com'\n";//定义部分泛域名解析至CDN，避免原ip访问困难
 char Hosts[6]="- \"\"\n";
@@ -23,7 +23,7 @@ char ABP_Filter[529]="\n- enabled: true\n  url: https://easylist-downloads.adblo
 char AdGuard_Filter[533]="\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/2.txt\n  name: AdGuard Base filter\n  id: 1589448814\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/3.txt\n  name: AdGuard Tracking Protection filter\n  id: 1589448815\n- enabled: true\n  url: https://filters.adtidy.org/extension/chromium/filters/4.txt\n  name: AdGuard Social Media filter\n  id: 1589448816\n- enabled: true\n  url: https://easylist-downloads.adblockplus.org/easylistchina.txt\n  name: EasyList China\n  id: 1589448817\n";//AdGuard数据库
 
 int UserInterface() {
-	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS\n\n2.自定义DNS解析Hosts(仅模式1开启时有效)\n\n3.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.重置DNS配置文件（用于恢复默认，用户名密码也将被重置）\n\n6.无污染DNS解析结果获取（不修改本机DNS，仅输出结果）\n\n7.重置系统Hosts文件\n\n8.检查AdGuardHome更新\n\n9.在线帮助\n\n0.退出\n\n请输入：");
+	printf("请选择DNS服务器运行方式：\n\n1.运行本地DNS\n\n2.自定义DNS解析Hosts(仅模式1开启时有效)\n\n3.重置DNS（运行本地DNS时未正常退出，可用此选项恢复上网功能）\n\n4.自定义DNS配置文件（用于添加自定义上游）\n\n5.重置DNS配置文件（用户名密码也将被重置）\n\n6.纯净解析结果获取（不修改本机DNS）\n\n7.重置系统Hosts文件\n\n8.检查AdGuardHome更新\n\n9.在线帮助\n\n0.退出\n\n请输入：");
 	ret=scanf("%d", &mode);
 	system("cls");
 	return 0;
@@ -378,40 +378,63 @@ int FixHosts() {
 
 int Update() {
 	Boot();
-	int i,j;
+	int i,j,k;
 	if (Boot() != 0) {
 		system("cls");
 		printf("未在软件目录中发现AdGuardHome引擎，请在官网下载后放置在本软件同一目录下！\n\n");
 		system("explorer https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_windows_amd64.zip");
 	}
 	else {
-		system("AdGuardHome --version > current_version.txt");
-		system("curl https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | find \"tag_name\" > source_version.txt");
+		system("AdGuardHome --version > adguard_current_version.txt");
+		system("curl https://api.github.com/repos/AdguardTeam/AdGuardHome/releases/latest | find \"tag_name\" > adguard_source_version.txt");
+		system("curl https://api.github.com/repos/HXHGTS/AntiDNSPollute/releases/latest | find \"tag_name\" > anti_source_version.txt");
 		system("cls");
-		sv = fopen("source_version.txt", "r");
-		ret = fscanf(sv, "  \"tag_name\": \"v%s\",", source_version);
+		sv = fopen("adguard_source_version.txt", "r");
+		ret = fscanf(sv, "  \"tag_name\": \"v%s\",", adguard_source_version);
 		fclose(sv);
-		cv = fopen("current_version.txt", "r");
-		ret = fscanf(cv, "AdGuard Home, version %s, channel release, arch windows amd64", current_version);
+		sv = fopen("anti_source_version.txt", "r");
+		ret = fscanf(sv, "  \"tag_name\": \"v%s\",", anti_source_version);
+		fclose(sv);
+		cv = fopen("adguard_current_version.txt", "r");
+		ret = fscanf(cv, "AdGuard Home, version %s, channel release, arch windows amd64", adguard_current_version);
 		fclose(cv);
 		for (i = 0; i <= 15; i++) {
-			if (source_version[i] == '\"') {
-				source_version[i] = '\0';
+			if (adguard_source_version[i] == '\"') {
+				adguard_source_version[i] = '\0';
+			}
+		}
+		for (i = 0; i <= 4; i++) {
+			if (anti_source_version[i] == '\"') {
+				anti_source_version[i] = '\0';
 			}
 		}
 		for (i = 0,j=0; i <= 6; i++) {
-			if (current_version[i] != source_version[i]) {
+			if (adguard_current_version[i] != adguard_source_version[i]) {
 				j = j + 1;
 			}
 		}
-		printf("当前版本: %s 最新版本: %s \n", current_version, source_version);
+		for (i = 0, k = 0; i <= 3; i++) {
+			if (anti_current_version[i] != anti_source_version[i]) {
+				k = k + 1;
+			}
+		}
+		printf("AdGuardHome当前版本: %s 最新版本: %s \n", adguard_current_version, adguard_source_version);
 		if (j != 0) {
-			printf("检测到新版本: %s \n", source_version);
-			system("explorer https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_windows_amd64.zip");
+			printf("AdGuardHome检测到新版本!\n");
+			system("start explorer https://github.com/AdguardTeam/AdGuardHome/releases/latest/download/AdGuardHome_windows_amd64.zip");
 		}
 		else {
-			printf("已经是最新版本: %s \n", source_version);
+			printf("AdGuardHome已经是最新版本!\n");
 		}
+		printf("\nAntiDNSPollute当前版本: %s 最新版本: %s \n", anti_current_version, anti_source_version);
+		if (k != 0) {
+			printf("AntiDNSPollute检测到新版本!\n");
+			system("start explorer https://github.com/HXHGTS/AntiDNSPollute/releases/latest/download/AntiDNSPollute.X64.exe");
+		}
+		else {
+			printf("AntiDNSPollute已经是最新版本!\n");
+		}
+		printf("\n");
 		system("pause");
 	}
 	return 0;
