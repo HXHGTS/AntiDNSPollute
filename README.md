@@ -82,4 +82,4 @@ WEB登陆默认用户名与密码均为root，可根据自行需要修改，若�
 
 #### 开发者邮箱：
 
-[admin@hxhgts.cf](mailto:admin@hxhgts.cf)
+[admin@hxhgts.cf](mailto:hxhgts@outlook.com)
